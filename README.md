@@ -1,10 +1,10 @@
 # faahzsh
 
-A zsh plugin that plays a **"faaaah"** sound whenever a command exits with a non-zero status code. Because your failures deserve to be heard.
+A zsh/bash plugin that plays a **"faaaah"** sound whenever a command exits with a non-zero status code. Because your failures deserve to be heard.
 
 ## Requirements
 
-- **zsh** 4.3.11+
+- **zsh** 4.3.11+ or **bash** 3.2+
 - One of the following audio players:
   - **macOS**: `afplay` (built-in, no install needed)
   - **Linux**: `paplay` (PulseAudio), `aplay` (ALSA), or `ffplay` (FFmpeg)
@@ -12,13 +12,22 @@ A zsh plugin that plays a **"faaaah"** sound whenever a command exits with a non
 
 ## Installation
 
-### Antigen
+### Homebrew
+
+```sh
+brew tap dgr8akki/faahzsh
+brew install faahzsh
+```
+
+Then add to your shell config as shown in `brew info faahzsh`.
+
+### Antigen (zsh)
 
 ```zsh
 antigen bundle dgr8akki/faahzsh
 ```
 
-### Zinit
+### Zinit (zsh)
 
 ```zsh
 zinit light dgr8akki/faahzsh
@@ -38,7 +47,16 @@ Then add it to your plugins in `~/.zshrc`:
 plugins=(... faahzsh)
 ```
 
-### Manual
+### Bash
+
+Clone the repo and source it in your `~/.bashrc`:
+
+```bash
+git clone https://github.com/dgr8akki/faahzsh.git ~/faahzsh
+echo 'source ~/faahzsh/faahzsh.plugin.bash' >> ~/.bashrc
+```
+
+### Manual (zsh)
 
 Clone the repo and source it in your `~/.zshrc`:
 
@@ -49,7 +67,7 @@ echo 'source ~/faahzsh/faahzsh.plugin.zsh' >> ~/.zshrc
 
 ## Configuration
 
-Set these in your `~/.zshrc` **before** the plugin is loaded:
+Set these in your shell config **before** the plugin is loaded:
 
 ```zsh
 FAAHZSH_ENABLED=true   # Enable/disable (default: true)
@@ -69,7 +87,7 @@ faahzsh help            Show help message
 
 ## How It Works
 
-The plugin registers a `precmd` hook that checks the exit code of the last command. If the exit code is non-zero, it plays a cached "faaah" sound file using `afplay` in the background (non-blocking).
+The plugin hooks into your shell's prompt cycle (`precmd` in zsh, `PROMPT_COMMAND` in bash) to check the exit code of the last command. If the exit code is non-zero, it plays the bundled sound file in the background (non-blocking).
 
 The sound file (`sounds/faaaah.wav`) is bundled with the plugin. The plugin auto-detects the best available audio player for your platform.
 
