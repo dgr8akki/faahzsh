@@ -15,7 +15,7 @@ A zsh/bash plugin that plays a **"faaaah"** sound whenever a command exits with 
 ### Homebrew
 
 ```sh
-brew tap dgr8akki/faahzsh
+brew tap dgr8akki/tap
 brew install faahzsh
 ```
 
